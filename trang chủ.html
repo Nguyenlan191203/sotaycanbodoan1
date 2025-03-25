@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sổ tay cán bộ đoàn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="ICON WEB.jpg" type="image/png" style=" border-radius: 50px;">
+    <style>
+        /* Reset and general settings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Header */
+        header {
+            background: #00bcd4;
+            color: white;
+            padding: 12px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        /* Search Bar */
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .search-bar {
+            width: 60%;
+            padding: 12px;
+            font-size: 1.2rem;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: #00bcd4;
+        }
+
+        .search-button {
+            background-color: #00bcd4;
+            color: white;
+            padding: 12px 20px;
+            margin-left: 10px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-button:hover {
+            background-color: #008c9e;
+        }
+
+        /* Main Content */
+        .document-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 30px;
+            padding-left: 10px; /* Thêm khoảng cách lề trái */
+            padding-right: 10px; /* Thêm khoảng cách lề phải */
+        }
+
+        .document-card {
+            background: white;
+            width: 300px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-align: center;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-bottom: 10px; /* Thêm khoảng cách đáy cho thẻ tài liệu */
+        }
+
+        .document-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .document-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 2px solid #f1f1f1;
+        }
+
+        .document-card h3 {
+            font-size: 1.5rem;
+            color: #333;
+            padding: 20px 15px 10px;
+            font-weight: 500;
+        }
+
+        .document-card p {
+            padding: 0 15px 20px;
+            font-size: 1rem;
+            color: #777;
+            flex-grow: 1;
+        }
+
+        .view-button {
+            background-color: #00bcd4;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-bottom: 12px; /* Thêm khoảng cách dưới nút */
+            width: 150px;
+            
+            flex-direction: column;
+        }
+
+        .view-button:hover {
+            background-color: #008c9e;
+        }
+
+       
+        .contact-bar {
+       
+       background-color: #00b6ce;
+        color: rgb(0, 191, 255);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 33.8px;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
+        position: relative; /* Cố định thanh liên hệ ở cuối trang nội dung */
+    }
+
+    .contact-item {
+        text-decoration: none;
+        font-size: 16px;
+        color: white;
+    }
+
+    .icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+        border: 2px solid white; /* Thêm viền trắng */
+        
+        animation: bounce 2s infinite;
+        
+    }
+    
+    /* Thứ tự nhảy sóng của các icon */
+    .contact-item:nth-child(1) .icon {
+        animation-delay: 0s;
+    }
+
+    .contact-item:nth-child(2) .icon {
+        animation-delay: 0.2s;
+    }
+
+    .contact-item:nth-child(3) .icon {
+        animation-delay: 0.4s;
+    }
+
+    /* Hiệu ứng lướt sóng */
+    @keyframes bounce {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+    .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none; /* Ẩn hình ảnh ban đầu */
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .scroll-to-top img {
+            width: 50px; /* Đặt kích thước hình ảnh */
+            height: auto; /* Giữ tỉ lệ */
+            border-radius: 50%;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <img src="BÌA TRANG.jpg" alt="Mô tả hình ảnh" style="width: 100%; max-width: 1300px;">
+    </div>
+
+<header>
+    <p>Tìm kiếm và khám phá các tài liệu hữu ích cho công tác Đoàn</p>
+</header>
+
+<!-- Search Bar Section -->
+<div class="search-container">
+    <input type="text" class="search-bar" id="search-input" placeholder="Tìm kiếm tài liệu...">
+    <button class="search-button" onclick="searchDocuments()">Tìm Kiếm</button>
+</div>
+
+<!-- Document Cards -->
+<div class="document-container" id="document-container">
+    <!-- Tài liệu sẽ được hiển thị ở đây -->
+</div>
+
+<div class="image-container" style="text-align: center; margin-top: 20px;">
+    <img src="CHAT BOT.jpg" alt="Mô tả hình ảnh" style="width: 100%; max-width: 950px; border-radius: 10px;">
+</div>
+<div style="text-align: center; margin-top: 15px; margin-bottom: 15px;">
+    <button onclick="openChatBot()" style="background-color: #00bcd4; color: white; padding: 12px 25px; font-size: 1.2rem; border-radius: 30px; border: none; cursor: pointer; transition: background 0.3s ease;">
+        Mở Chat Bot
+    </button>
+</div>
+
+<!-- Footer -->
+<div class="contact-bar">
+    <a href="https://zalo.me/your-zalo-id" target="_blank" class="contact-item">
+        <img src="zalo.jpg" alt="Zalo" class="icon">
+    </a>
+    <a href="tel:0939674594" class="contact-item">
+        <img src="điện thoại.jpg" alt="Điện thoại" class="icon">
+    </a>
+    <a href="@gamil.com" class="contact-item">
+        <img src="email.jpg" alt="Email" class="icon">
+    </a>
+</div>
+
+<div class="scroll-to-top" id="scrollToTop">
+    <img src="Về đầu trang.jpg" alt="Về đầu trang">
+</div> <!-- Hình ảnh mũi tên -->
+
+
+<script>
+    const documents = [
+        { title: "Hướng Dẫn Lập Kế Hoạch Công Tác Đoàn", description: "Hướng dẫn lập kế hoạch công tác đoàn cho năm học mới.", image: "ICON WEB.JPG", url: "files/huong_dan_lap_ke_hoach.pdf" },
+        { title: "Chính Sách Đoàn Thanh Niên", description: "Tài liệu về các chính sách của Đoàn Thanh Niên.", image: "https://via.placeholder.com/300x200?text=Document+2", url: "https://www.coze.com/store/agent/7485221022560796679?bot_id=true&bid=6folfqns07g0i" },
+        { title: "Báo Cáo Hoạt Động Đoàn", description: "Báo cáo tổng kết hoạt động đoàn trong quý I năm 2025.", image: "https://via.placeholder.com/300x200?text=Document+3" },
+        { title: "Chương Trình Đào Tạo Cán Bộ Đoàn", description: "Chương trình đào tạo dành cho cán bộ đoàn.", image: "https://via.placeholder.com/300x200?text=Document+4" },
+        { title: "Mô Hình Tổ Chức Đoàn", description: "Các mô hình tổ chức đoàn tại các trường học và cơ sở.", image: "https://via.placeholder.com/300x200?text=Document+5" },
+        {title: "Mô Hình Tổ Chức Đoàn", description: "Các mô hình tổ chức đoàn tại các trường học và cơ sở.", image: "https://via.placeholder.com/300x200?text=Document+5" },
+    ];
+
+    document.getElementById('search-input').addEventListener('input', searchDocuments);
+
+
+    function searchDocuments() {
+        const query = document.getElementById('search-input').value.toLowerCase();
+        const filteredDocuments = documents.filter(doc => 
+            doc.title.toLowerCase().includes(query) || doc.description.toLowerCase().includes(query)
+        );
+
+        displayDocuments(filteredDocuments);
+    }
+
+    function displayDocuments(docs) {
+    const container = document.getElementById('document-container');
+    container.innerHTML = '';
+
+    if (docs.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #777;">Không tìm thấy tài liệu nào phù hợp.</p>';
+        return;
+    }
+
+    docs.forEach(doc => {
+        const card = document.createElement('div');
+        card.classList.add('document-card');
+        card.innerHTML = `
+            <img src="${doc.image}" alt="${doc.title}">
+            <h3>${doc.title}</h3>
+            <p>${doc.description}</p>
+            <a href="${doc.url}" target="_blank">
+                <button class="view-button">Xem Tài Liệu</button>
+            </a>
+            
+        `;
+        container.appendChild(card);
+    });
+}
+
+
+    // Initial display of all documents
+    displayDocuments(documents);
+
+    function openChatBot() {
+        window.open('https://www.coze.com/s/Zs8fyuvqJ/', '_blank'); // Thay LINK_CHAT_BOT bằng đường dẫn thực tế
+    }
+</script>
+
+</body>
+</html>
