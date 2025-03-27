@@ -212,6 +212,9 @@
             display: none; /* Ẩn hình ảnh ban đầu */
             cursor: pointer;
             transition: opacity 0.3s;
+            border: 2px solid white;
+            border-radius: 50%;
+            height: 54.5px;
         }
 
         .scroll-to-top img {
@@ -219,7 +222,47 @@
             height: auto; /* Giữ tỉ lệ */
             border-radius: 50%;
         }
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row;
+            }
 
+            .content {
+                flex: 3;
+            }
+           
+            }
+            section image{
+            
+            padding: 10px;
+            padding-bottom: 10px;
+            border-radius: 10px;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            width: 500%;
+            height: 100%;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+   
+        }
+        @media (max-width: 767px) {
+            .contact-bar {
+        background-image: url('nền cuối 1.jpg');
+       
+
+        }
+        .icon {
+        width: 35px;
+        height: 35px; }
+    .scroll-to-top {
+        height: 44px;
+    }
+    .scroll-to-top img {
+            width: 40px; /* Đặt kích thước hình ảnh */
+            height: auto; /* Giữ tỉ lệ */
+            border-radius: 50%;
+        }
+    } 
+        
     </style>
 </head>
 
@@ -325,6 +368,19 @@
     function openChatBot() {
         window.open('https://www.coze.com/s/Zs8fyuvqJ/', '_blank'); // Thay LINK_CHAT_BOT bằng đường dẫn thực tế
     }
+
+    window.onscroll = function() {
+        const scrollToTopButton = document.getElementById("scrollToTop");
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            scrollToTopButton.style.display = "block"; // Hiển thị hình ảnh
+        } else {
+            scrollToTopButton.style.display = "none"; // Ẩn hình ảnh
+        }
+    };
+
+    document.getElementById("scrollToTop").onclick = function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // Cuộn về đầu trang
+    };
 </script>
 
 </body>
