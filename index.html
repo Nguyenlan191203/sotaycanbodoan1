@@ -245,6 +245,22 @@
    
         }
         @media (max-width: 767px) {
+
+            .document-card {
+            background: white;
+            width: 300px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-align: center;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-bottom: 10px; /* Thêm khoảng cách đáy cho thẻ tài liệu */
+        }
+
             .contact-bar {
         background-image: url('nền cuối 1.jpg');
        
@@ -321,7 +337,7 @@
         { title: "Báo Cáo Hoạt Động Đoàn", description: "Báo cáo tổng kết hoạt động đoàn trong quý I năm 2025.", image: "https://via.placeholder.com/300x200?text=Document+3" },
         { title: "Chương Trình Đào Tạo Cán Bộ Đoàn", description: "Chương trình đào tạo dành cho cán bộ đoàn.", image: "https://via.placeholder.com/300x200?text=Document+4" },
         { title: "Mô Hình Tổ Chức Đoàn", description: "Các mô hình tổ chức đoàn tại các trường học và cơ sở.", image: "https://via.placeholder.com/300x200?text=Document+5" },
-        {title: "Mô Hình Tổ Chức Đoàn", description: "Các mô hình tổ chức đoàn tại các trường học và cơ sở.", image: "https://via.placeholder.com/300x200?text=Document+5" },
+        {title: "Vòng Xoay Mật Thư", description: "Dùng trong giải mật thư", url: "vòng tròn mật thư.html"  },
     ];
 
     document.getElementById('search-input').addEventListener('input', searchDocuments);
