@@ -2,6 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <title>Vòng Xoay Mật Thư</title>
   <style>
     body {
@@ -10,17 +11,27 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
-      background: #fdf6e3;
+      background: #f5f3ef;
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      user-select: none;
     }
 
     h1 {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      color: #333;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      font-family: 'Pacifico', cursive;
+      font-size: 36px;
+      font-weight: normal;
+      color: #6B3E26;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      transition: color 0.3s ease, transform 0.3s ease;
+      user-select: none;
+      letter-spacing: 1.5px;
+    }
+
+    h1:hover {
+      color: #D2691E;
+      transform: scale(1.05);
     }
 
     .circle-container {
@@ -50,25 +61,30 @@
       justify-content: center;
       align-items: center;
       font-weight: bold;
-      border: 1px solid #ccc;
+      border: 1px solid #bbb;
       border-radius: 50%;
-      box-shadow: 0 0 2px rgba(0,0,0,0.3);
+      box-shadow: 0 0 2px rgba(0,0,0,0.2);
       font-size: 14px;
+      user-select: none;
+      color: #333;
     }
 
     .ring-outer span {
       transform: rotate(calc(var(--i) * 13.85deg)) translateY(-180px);
-      background: #FFEEAD;
+      background: #FAD6A5;
+      color: #6B3E26;
     }
 
     .ring-middle span {
       transform: rotate(calc(var(--i) * 13.85deg)) translateY(-140px);
-      background: #AEDFF7;
+      background: #B3D8F0;
+      color: #1C3F60;
     }
 
     .ring-inner span {
       transform: rotate(calc(var(--i) * 13.85deg)) translateY(-100px);
-      background: #C1F2B0;
+      background: #C5E1A5;
+      color: #2B4D2F;
     }
 
     .marker {
@@ -79,7 +95,7 @@
       top: 0;
       left: 50%;
       transform-origin: bottom center;
-      opacity: 0.5;
+      opacity: 0.4;
     }
   </style>
 </head>
@@ -122,35 +138,52 @@
     fillRing("ring2", chars);         // Vòng giữa: A-Z
     fillRing("ring3", smallChars);    // Vòng trong: a-z
 
-    // Cho phép xoay vòng bằng chuột
+    // Cho phép xoay bằng chuột và cảm ứng
     const makeRotatable = (elementId) => {
       const element = document.getElementById(elementId);
       let isDragging = false;
       let startAngle = 0;
 
-      element.addEventListener("mousedown", (e) => {
+      const getAngle = (x, y, rect) => {
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        return Math.atan2(y - centerY, x - centerX);
+      };
+
+      const startDrag = (x, y) => {
         isDragging = true;
         const rect = element.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
-        startAngle = angle - (element.rotation || 0);
-      });
+        startAngle = getAngle(x, y, rect) - (element.rotation || 0);
+      };
 
-      window.addEventListener("mousemove", (e) => {
+      const duringDrag = (x, y) => {
         if (!isDragging) return;
         const rect = element.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
+        const angle = getAngle(x, y, rect);
         const rotation = angle - startAngle;
         element.style.transform = `rotate(${rotation}rad)`;
         element.rotation = rotation;
-      });
+      };
 
-      window.addEventListener("mouseup", () => {
+      const endDrag = () => {
         isDragging = false;
+      };
+
+      // Chuột
+      element.addEventListener("mousedown", (e) => startDrag(e.clientX, e.clientY));
+      window.addEventListener("mousemove", (e) => duringDrag(e.clientX, e.clientY));
+      window.addEventListener("mouseup", endDrag);
+
+      // Cảm ứng
+      element.addEventListener("touchstart", (e) => {
+        const touch = e.touches[0];
+        startDrag(touch.clientX, touch.clientY);
       });
+      window.addEventListener("touchmove", (e) => {
+        const touch = e.touches[0];
+        duringDrag(touch.clientX, touch.clientY);
+      }, { passive: false });
+      window.addEventListener("touchend", endDrag);
     };
 
     makeRotatable("ring1");
