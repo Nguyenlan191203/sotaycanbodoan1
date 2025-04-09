@@ -97,6 +97,35 @@
       transform-origin: bottom center;
       opacity: 0.4;
     }
+    @media (max-width: 600px) {
+  .circle-container {
+    width: 100vw;
+    height: 100vw;
+  }
+
+  .ring span {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+
+  .ring-outer span {
+    transform: rotate(calc(var(--i) * 13.85deg)) translateY(-47vw);
+  }
+
+  .ring-middle span {
+    transform: rotate(calc(var(--i) * 13.85deg)) translateY(-36vw);
+  }
+
+  .ring-inner span {
+    transform: rotate(calc(var(--i) * 13.85deg)) translateY(-26vw);
+  }
+
+  .marker {
+    height: 50vw;
+  }
+}
+
   </style>
 </head>
 <body>
