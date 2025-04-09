@@ -23,10 +23,11 @@
       font-weight: normal;
       color: #6B3E26;
       text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-      margin-bottom: 30px;
+      margin-bottom: 40px;
       transition: color 0.3s ease, transform 0.3s ease;
       user-select: none;
       letter-spacing: 1.5px;
+      margin-top: -50px;
     }
 
     h1:hover {
@@ -55,8 +56,8 @@
       position: absolute;
       transform-origin: center center;
       pointer-events: auto;
-      width: 30px;
-      height: 30px;
+      width: 35px;
+      height: 35px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -70,19 +71,19 @@
     }
 
     .ring-outer span {
-      transform: rotate(calc(var(--i) * 13.85deg)) translateY(-180px);
+      transform: rotate(calc(var(--i) * 13.85deg)) translateY(-205px);
       background: #FAD6A5;
       color: #6B3E26;
     }
 
     .ring-middle span {
-      transform: rotate(calc(var(--i) * 13.85deg)) translateY(-140px);
+      transform: rotate(calc(var(--i) * 13.85deg)) translateY(-160px);
       background: #B3D8F0;
       color: #1C3F60;
     }
 
     .ring-inner span {
-      transform: rotate(calc(var(--i) * 13.85deg)) translateY(-100px);
+      transform: rotate(calc(var(--i) * 13.85deg)) translateY(-110px);
       background: #C5E1A5;
       color: #2B4D2F;
     }
@@ -97,7 +98,7 @@
       transform-origin: bottom center;
       opacity: 0.4;
     }
-    @media (max-width: 300px) {
+    @media (max-width: 450px) {
   .circle-container {
     width: 100vw;
     height: 100vw;
