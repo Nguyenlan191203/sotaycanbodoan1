@@ -99,7 +99,32 @@
       opacity: 0.4;
     }
     @media (min-width: 768px) {
-           
+      .circle-container {
+    width: 400px;
+    height: 400px;
+  }
+
+  .ring span {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+
+  .ring-outer span {
+    transform: rotate(calc(var(--i) * 13.85deg)) translateY(-225px);
+  }
+
+  .ring-middle span {
+    transform: rotate(calc(var(--i) * 13.85deg)) translateY(-180px);
+  }
+
+  .ring-inner span {
+    transform: rotate(calc(var(--i) * 13.85deg)) translateY(-130px);
+  }
+
+  .marker {
+    height: 200px;
+  }
    
         }
         
