@@ -98,7 +98,10 @@
       transform-origin: bottom center;
       opacity: 0.4;
     }
-    @media (min-width: 768px) {
+    
+        
+
+    @media (max-width: 768px) {
       .circle-container {
     width: 400px;
     height: 400px;
@@ -141,41 +144,6 @@
   }
    
         }
-        
-
-        @media (max-width: 300px) {
-    
-  .circle-container {
-    width: 400px;
-    height: 400px;
-  }
-
-  .ring span {
-    width: 48px;
-    height: 48px;
-    font-size: 20px;
-  }
-  .ring3 span{
-    width: 45px;
-    height: 45px;
-  }
-
-  .ring-outer span {
-    transform: rotate(calc(var(--i) * 13.85deg)) translateY(-295px);
-  }
-
-  .ring-middle span {
-    transform: rotate(calc(var(--i) * 13.85deg)) translateY(-220px);
-  }
-
-  .ring-inner span {
-    transform: rotate(calc(var(--i) * 13.85deg)) translateY(-150px);
-  }
-
-  .marker {
-    height: 200px;
-  }
-}
 
   </style>
 </head>
