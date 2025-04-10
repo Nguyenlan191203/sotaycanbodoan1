@@ -13,7 +13,10 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
-      background: #f5f3ef;
+      background-image: url('nền.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       user-select: none;
@@ -25,11 +28,11 @@
       font-weight: normal;
       color: #6B3E26;
       text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-      margin-bottom: 40px;
+      margin-bottom: 55px;
       transition: color 0.3s ease, transform 0.3s ease;
       user-select: none;
       letter-spacing: 1.5px;
-      margin-top: -50px;
+      margin-top: -70px;
     }
 
     h1:hover {
@@ -73,19 +76,19 @@
     }
 
     .ring-outer span {
-      transform: rotate(calc(var(--i) * 13.85deg)) translateY(-210px);
+      transform: rotate(calc(var(--i) * 13.85deg)) translateY(-225px);
       background: #FAD6A5;
       color: #6B3E26;
     }
 
     .ring-middle span {
-      transform: rotate(calc(var(--i) * 13.85deg)) translateY(-160px);
+      transform: rotate(calc(var(--i) * 13.85deg)) translateY(-175px);
       background: #B3D8F0;
       color: #1C3F60;
     }
 
     .ring-inner span {
-      transform: rotate(calc(var(--i) * 13.85deg)) translateY(-110px);
+      transform: rotate(calc(var(--i) * 13.85deg)) translateY(-125px);
       background: #C5E1A5;
       color: #2B4D2F;
       width: 30px;
@@ -95,9 +98,9 @@
     .marker {
       position: absolute;
       width: 2px;
-      height: 200px;
+      height: 215px;
       background: #aaa;
-      top: 0;
+      top: -15px;
       left: 50%;
       transform-origin: bottom center;
       opacity: 0.4;
