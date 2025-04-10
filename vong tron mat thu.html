@@ -2,6 +2,8 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <title>Vòng Xoay Mật Thư</title>
   <style>
@@ -56,8 +58,8 @@
       position: absolute;
       transform-origin: center center;
       pointer-events: auto;
-      width: 35px;
-      height: 35px;
+      width: 37px;
+      height: 37px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -65,13 +67,13 @@
       border: 1px solid #bbb;
       border-radius: 50%;
       box-shadow: 0 0 2px rgba(0,0,0,0.2);
-      font-size: 14px;
+      font-size: 15px;
       user-select: none;
       color: #333;
     }
 
     .ring-outer span {
-      transform: rotate(calc(var(--i) * 13.85deg)) translateY(-205px);
+      transform: rotate(calc(var(--i) * 13.85deg)) translateY(-210px);
       background: #FAD6A5;
       color: #6B3E26;
     }
@@ -86,6 +88,8 @@
       transform: rotate(calc(var(--i) * 13.85deg)) translateY(-110px);
       background: #C5E1A5;
       color: #2B4D2F;
+      width: 30px;
+    height: 30px;
     }
 
     .marker {
@@ -101,7 +105,7 @@
     
         
 
-    @media (max-width: 368px) {
+    @media (max-width: 768px) {
       .circle-container {
     width: 400px;
     height: 400px;
@@ -235,6 +239,18 @@
 
       window.addEventListener("touchend", endDrag);
     };
+    // Ngăn cuộn bằng bánh xe chuột
+window.addEventListener('wheel', (e) => {
+  e.preventDefault();
+}, { passive: false });
+
+// Ngăn cuộn bằng phím (mũi tên, space, page up/down)
+window.addEventListener('keydown', (e) => {
+  const keys = ['ArrowUp', 'ArrowDown', 'Space', 'PageUp', 'PageDown'];
+  if (keys.includes(e.code)) {
+    e.preventDefault();
+  }
+}, { passive: false });
 
     makeRotatable("ring1");
     makeRotatable("ring2");
