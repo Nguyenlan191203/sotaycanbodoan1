@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <title>Vòng Xoay Mật Thư</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #f5f3ef;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      user-select: none;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 36px;
+      font-weight: normal;
+      color: #6B3E26;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+      transition: color 0.3s ease, transform 0.3s ease;
+      user-select: none;
+      letter-spacing: 1.5px;
+      margin-top: -50px;
+    }
+
+    h1:hover {
+      color: #D2691E;
+      transform: scale(1.05);
+    }
+
+    .circle-container {
+      position: relative;
+      width: 400px;
+      height: 400px;
+    }
+
+    .ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .ring span {
+      position: absolute;
+      transform-origin: center center;
+      pointer-events: auto;
+      width: 37px;
+      height: 37px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      border: 1px solid #bbb;
+      border-radius: 50%;
+      box-shadow: 0 0 2px rgba(0,0,0,0.2);
+      font-size: 15px;
+      user-select: none;
+      color: #333;
+    }
+
+    .ring-outer span {
+      transform: rotate(calc(var(--i) * 13.85deg)) translateY(-210px);
+      background: #FAD6A5;
+      color: #6B3E26;
+    }
+
+    .ring-middle span {
+      transform: rotate(calc(var(--i) * 13.85deg)) translateY(-160px);
+      background: #B3D8F0;
+      color: #1C3F60;
+    }
+
+    .ring-inner span {
+      transform: rotate(calc(var(--i) * 13.85deg)) translateY(-110px);
+      background: #C5E1A5;
+      color: #2B4D2F;
+      width: 30px;
+    height: 30px;
+    }
+
+    .marker {
+      position: absolute;
+      width: 2px;
+      height: 200px;
+      background: #aaa;
+      top: 0;
+      left: 50%;
+      transform-origin: bottom center;
+      opacity: 0.4;
+    }
+    
+        
+
+    @media (max-width: 768px) {
+      .circle-container {
+    width: 400px;
+    height: 400px;
+  }
+
+  .ring span {
+    width: 25px;
+    height: 25px;
+    font-size: 15px;
+  }
+
+  
+
+  .ring-outer span {
+    transform: rotate(calc(var(--i) * 13.85deg)) translateY(-157px);
+  }
+
+  .ring-middle span {
+    transform: rotate(calc(var(--i) * 13.85deg)) translateY(-124px);
+  }
+
+  .ring-inner span {
+    transform: rotate(calc(var(--i) * 13.85deg)) translateY(-93px);
+    width: 21px;
+    height: 21px;
+  }
+
+  .marker {
+    height: 170px;
+    width: 2px;
+    top: 30px;
+  }
+  h1{
+    font-size: 33px;
+    margin-top: -50px;
+    margin-bottom: 20px;
+  }
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Vòng Xoay Mật Thư</h1>
+
+  <div class="circle-container">
+    <!-- Vạch chia 26 cung -->
+    <script>
+      for (let i = 0; i < 26; i++) {
+        const marker = document.createElement('div');
+        marker.className = 'marker';
+        marker.style.transform = `rotate(${i * 13.85}deg)`;
+        document.querySelector('.circle-container').appendChild(marker);
+      }
+    </script>
+
+    <div class="ring ring-outer" id="ring1"></div>
+    <div class="ring ring-middle" id="ring2"></div>
+    <div class="ring ring-inner" id="ring3"></div>
+  </div>
+
+  <script>
+    const chars = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
+    const numbers = Array.from({length: 26}, (_, i) => i + 1);
+    const smallChars = [..."abcdefghijklmnopqrstuvwxyz"];
+
+    const fillRing = (ringId, values) => {
+      const ring = document.getElementById(ringId);
+      ring.innerHTML = "";
+      values.forEach((val, i) => {
+        const span = document.createElement("span");
+        span.innerText = val;
+        span.style.setProperty('--i', i);
+        ring.appendChild(span);
+      });
+    };
+
+    fillRing("ring1", numbers);       // Vòng ngoài: số 1-26
+    fillRing("ring2", chars);         // Vòng giữa: A-Z
+    fillRing("ring3", smallChars);    // Vòng trong: a-z
+
+    // Cho phép xoay bằng chuột và cảm ứng
+    const makeRotatable = (elementId) => {
+      const element = document.getElementById(elementId);
+      let isDragging = false;
+      let startAngle = 0;
+
+      const getAngle = (x, y, rect) => {
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        return Math.atan2(y - centerY, x - centerX);
+      };
+
+      const startDrag = (x, y) => {
+        isDragging = true;
+        const rect = element.getBoundingClientRect();
+        startAngle = getAngle(x, y, rect) - (element.rotation || 0);
+      };
+
+      const duringDrag = (x, y) => {
+        if (!isDragging) return;
+        const rect = element.getBoundingClientRect();
+        const angle = getAngle(x, y, rect);
+        const rotation = angle - startAngle;
+        element.style.transform = `rotate(${rotation}rad)`;
+        element.rotation = rotation;
+      };
+
+      const endDrag = () => {
+        isDragging = false;
+      };
+
+      // Chuột
+      element.addEventListener("mousedown", (e) => startDrag(e.clientX, e.clientY));
+      window.addEventListener("mousemove", (e) => duringDrag(e.clientX, e.clientY));
+      window.addEventListener("mouseup", endDrag);
+
+      // Cảm ứng
+      element.addEventListener("touchstart", (e) => {
+        const touch = e.touches[0];
+        startDrag(touch.clientX, touch.clientY);
+      });
+      window.addEventListener("touchmove", (e) => {
+  e.preventDefault(); // Ngăn cuộn màn hình
+  const touch = e.touches[0];
+  duringDrag(touch.clientX, touch.clientY);
+}, { passive: false });
+
+      window.addEventListener("touchend", endDrag);
+    };
+    // Ngăn cuộn bằng bánh xe chuột
+window.addEventListener('wheel', (e) => {
+  e.preventDefault();
+}, { passive: false });
+
+// Ngăn cuộn bằng phím (mũi tên, space, page up/down)
+window.addEventListener('keydown', (e) => {
+  const keys = ['ArrowUp', 'ArrowDown', 'Space', 'PageUp', 'PageDown'];
+  if (keys.includes(e.code)) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
+    makeRotatable("ring1");
+    makeRotatable("ring2");
+    makeRotatable("ring3");
+  </script>
+</body>
+</html>
