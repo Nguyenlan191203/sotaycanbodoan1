@@ -101,7 +101,7 @@
     
         
 
-    @media (max-width: 768px) {
+    @media (max-width: 368px) {
       .circle-container {
     width: 400px;
     height: 400px;
@@ -228,9 +228,11 @@
         startDrag(touch.clientX, touch.clientY);
       });
       window.addEventListener("touchmove", (e) => {
-        const touch = e.touches[0];
-        duringDrag(touch.clientX, touch.clientY);
-      }, { passive: false });
+  e.preventDefault(); // Ngăn cuộn màn hình
+  const touch = e.touches[0];
+  duringDrag(touch.clientX, touch.clientY);
+}, { passive: false });
+
       window.addEventListener("touchend", endDrag);
     };
 
