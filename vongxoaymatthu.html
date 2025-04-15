@@ -421,6 +421,78 @@ window.addEventListener("wheel", (e) => e.preventDefault(), { passive: false });
       const keys = ['ArrowUp', 'ArrowDown', 'Space', 'PageUp', 'PageDown'];
       if (keys.includes(e.code)) e.preventDefault();
     }, { passive: false });
+
+    function rotateToMatch() {
+  const from = document.getElementById("fromInput").value.trim();
+  const to = document.getElementById("toInput").value.trim();
+  const degPerStep = 360 / 26;
+
+  if (!from || !to) {
+    alert("Vui lòng nhập cả hai ô.");
+    return;
+  }
+
+  // Xác định vòng chứa 'from'
+  let ringFrom, valuesFrom, fromIndex;
+  if (/[A-Z]/.test(from)) {
+    ringFrom = document.getElementById("ring2");
+    valuesFrom = chars;
+    fromIndex = chars.indexOf(from);
+  } else if (/[a-z]/.test(from)) {
+    ringFrom = document.getElementById("ring3");
+    valuesFrom = smallChars;
+    fromIndex = smallChars.indexOf(from);
+  } else if (/^\d{1,2}$/.test(from)) {
+    ringFrom = document.getElementById("ring1");
+    valuesFrom = numbers.map(n => n.toString());
+    fromIndex = valuesFrom.indexOf(from);
+  }
+
+  // Xác định vòng chứa 'to'
+  let ringTo, valuesTo, toIndex;
+  if (/[A-Z]/.test(to)) {
+    ringTo = document.getElementById("ring2");
+    valuesTo = chars;
+    toIndex = chars.indexOf(to);
+  } else if (/[a-z]/.test(to)) {
+    ringTo = document.getElementById("ring3");
+    valuesTo = smallChars;
+    toIndex = smallChars.indexOf(to);
+  } else if (/^\d{1,2}$/.test(to)) {
+    ringTo = document.getElementById("ring1");
+    valuesTo = numbers.map(n => n.toString());
+    toIndex = valuesTo.indexOf(to);
+  }
+
+  if (!ringFrom || !ringTo || fromIndex === -1 || toIndex === -1) {
+    alert("Ký tự không hợp lệ.");
+    return;
+  }
+
+  // Tính góc xoay hiện tại của từng vòng
+  const rotationFrom = ringFrom.rotation || 0;
+  const rotationTo = ringTo.rotation || 0;
+
+  const currentDegFrom = rotationFrom * (180 / Math.PI);
+  const currentDegTo = rotationTo * (180 / Math.PI);
+
+  // Vị trí thực tế (hiện tại) của ký tự from và to
+  const actualFromPos = (fromIndex + Math.round(currentDegFrom / degPerStep)) % 26;
+  const actualToPos = (toIndex + Math.round(currentDegTo / degPerStep)) % 26;
+
+  // Tính khoảng cách cần xoay để đưa from đến đúng chỗ của to
+  let delta = actualToPos - actualFromPos;
+  if (delta < -13) delta += 26;
+  if (delta > 13) delta -= 26;
+
+  const newRotationDeg = currentDegFrom + delta * degPerStep;
+
+  // Xoay vòng chứa ký tự 'from'
+  ringFrom.style.transition = "transform 0.5s ease";
+  ringFrom.style.transform = `rotate(${newRotationDeg}deg)`;
+  ringFrom.rotation = newRotationDeg * (Math.PI / 180);
+}
+
   </script>
 </body>
 </html>
